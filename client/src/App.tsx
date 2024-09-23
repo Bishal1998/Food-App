@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
+import Login from "@/auth/Login.tsx";
+
 
 const App = () => {
-  return <Button className="bg-orange">Hello</Button>;
+  return <Login />
 };
 
 export default App;
