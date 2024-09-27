@@ -4,16 +4,10 @@ import {Loader2, LockKeyhole, Mail, Phone, User} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
 import {Separator} from "@/components/ui/separator.tsx";
 import {Link} from "react-router-dom";
-
-type SignupInputState = {
-    fullName: string;
-    email: string,
-    password: string,
-    contact:string
-}
+import {userSignUpState} from "@/Schema/userSchema.ts";
 
 const Signup = () => {
-    const [input, setInput] = useState<SignupInputState>({
+    const [input, setInput] = useState<userSignUpState>({
         fullName:"",
         email: "",
         password: "",

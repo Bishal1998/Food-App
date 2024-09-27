@@ -4,15 +4,11 @@ import {Button} from "@/components/ui/button.tsx";
 import {Separator} from "@/components/ui/separator.tsx";
 import {Link} from "react-router-dom";
 import {ChangeEvent, FormEvent, useState} from "react";
-
-type LoginInputProps = {
-    email: string,
-    password: string
-}
+import {userLoginState} from "@/Schema/userSchema.ts";
 
 const Login = () => {
 
-    const [input, setInput] = useState<LoginInputProps>({
+    const [input, setInput] = useState<userLoginState>({
         email: "",
         password: "",
     });
