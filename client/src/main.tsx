@@ -6,6 +6,7 @@ import './index.css'
 import Login from "@/auth/Login.tsx";
 import Signup from "@/auth/Signup.tsx";
 import ForgotPassword from "@/auth/ForgotPassword.tsx";
+import ResetPassword from "@/auth/ResetPassword.tsx";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     {
         path: "/forgotpassword",
         element: <ForgotPassword/>
+    },
+    {
+        path: "/resetPassword",
+        element: <ResetPassword/>
     },
 ])
 
