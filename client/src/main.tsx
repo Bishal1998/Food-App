@@ -22,11 +22,11 @@ const router = createBrowserRouter([
         element: <Signup/>
     },
     {
-        path: "/forgotpassword",
+        path: "/forgot-password",
         element: <ForgotPassword/>
     },
     {
-        path: "/resetPassword",
+        path: "/reset-password",
         element: <ResetPassword/>
     },
 ])

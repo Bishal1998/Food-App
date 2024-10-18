@@ -99,7 +99,7 @@ const Login = () => {
                         </Button>
                     )}
                     <div className="mt-4">
-                        <Link to="/forgotpassword" className="text-blue-500">Forgot Password</Link>
+                        <Link to="/forgot-password" className="text-blue-500">Forgot Password</Link>
                     </div>
                 </div>
                 <Separator/>
