@@ -10,6 +10,7 @@ import VerifyEmail from "@/auth/VerifyEmail.tsx";
 import MainLayout from "@/layout/MainLayout";
 import HeroSection from "@/components/HeroSection";
 import Profile from "@/components/Profile";
+import SearchPage from "@/components/SearchPage";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/search/:searchText",
+        element: <SearchPage />,
       },
     ],
   },
