@@ -9,6 +9,7 @@ import ResetPassword from "@/auth/ResetPassword.tsx";
 import VerifyEmail from "@/auth/VerifyEmail.tsx";
 import MainLayout from "@/layout/MainLayout";
 import HeroSection from "@/components/HeroSection";
+import Profile from "@/components/Profile";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HeroSection />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },
