@@ -12,6 +12,7 @@ import HeroSection from "@/components/HeroSection";
 import Profile from "@/components/Profile";
 import SearchPage from "@/components/SearchPage";
 import DetailPage from "@/components/DetailPage";
+import Cart from "@/components/Cart";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/restaurant/:id",
         element: <DetailPage />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },
