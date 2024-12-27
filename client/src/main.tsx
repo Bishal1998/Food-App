@@ -13,6 +13,7 @@ import Profile from "@/components/Profile";
 import SearchPage from "@/components/SearchPage";
 import DetailPage from "@/components/DetailPage";
 import Cart from "@/components/Cart";
+import Restaurant from "@/admin/Restaurant";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/admin/restaurant",
+        element: <Restaurant />,
       },
     ],
   },
