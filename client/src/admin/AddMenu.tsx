@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Loader2, Plus } from "lucide-react";
 import { useState } from "react";
 import Pizza from "@/assets/pizza.jpg";
-import EditMenu from "@/components/EditMenu";
+import EditMenu from "@/admin/EditMenu";
 
 const AddMenu = () => {
   const [open, setOpen] = useState<boolean>(false);
