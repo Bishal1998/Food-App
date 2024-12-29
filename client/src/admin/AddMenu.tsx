@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2, Plus } from "lucide-react";
 import { useState } from "react";
+import Pizza from "@/assets/pizza.jpg";
+import EditMenu from "@/components/EditMenu";
 
 const AddMenu = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -74,6 +76,28 @@ const AddMenu = () => {
           </DialogContent>
         </Dialog>
       </div>
+      <div className="mt-6 space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center md:space-x-4 md:p-4 p-2 shadow-md rounded-lg border">
+          <img
+            src={Pizza}
+            alt=""
+            className="md:h-24 md:w-24 h-16 w-full object-cover rounded-lg"
+          />
+          <div className="flex-1">
+            <h1 className="text-lg font-semibold text-gray-800">Pizza</h1>
+            <p className="text-sm text-gray-600 mt-1">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+            <h2 className="text-md font-semibold mt-2">
+              Price: <span className="text-[#D19254]">$80</span>
+            </h2>
+          </div>
+          <Button size={"sm"} className="bg-orange hover:bg-hoverOrange mt-2">
+            Edit
+          </Button>
+        </div>
+      </div>
+      <EditMenu />
     </div>
   );
 };
