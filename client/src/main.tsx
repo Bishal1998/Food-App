@@ -14,6 +14,7 @@ import SearchPage from "@/components/SearchPage";
 import DetailPage from "@/components/DetailPage";
 import Cart from "@/components/Cart";
 import Restaurant from "@/admin/Restaurant";
+import AddMenu from "@/admin/AddMenu";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/restaurant",
         element: <Restaurant />,
+      },
+      {
+        path: "/admin/addmenu",
+        element: <AddMenu />,
       },
     ],
   },
