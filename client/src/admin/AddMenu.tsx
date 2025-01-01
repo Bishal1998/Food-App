@@ -17,7 +17,7 @@ import EditMenu from "@/admin/EditMenu";
 
 const menus = [
   {
-    title: "Pizza",
+    name: "Pizza",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quasi at nobis iste magni officia cum corporis assumenda rem repellat.",
     price: "80",
     img: Pizza,
@@ -27,6 +27,7 @@ const menus = [
 const AddMenu = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedMenu, setSelectedMenu] = useState();
+  const [editOpen, setEditOpen] = useState<boolean>();
 
   const [inputData, setInputData] = useState<any>({
     name: "",
@@ -141,7 +142,7 @@ const AddMenu = () => {
               />
               <div className="flex-1">
                 <h1 className="text-lg font-semibold text-gray-800">
-                  {menu.title}
+                  {menu.name}
                 </h1>
                 <p className="text-sm text-gray-600 mt-1">{menu.desc}</p>
                 <h2 className="text-md font-semibold mt-2">
@@ -149,7 +150,10 @@ const AddMenu = () => {
                 </h2>
               </div>
               <Button
-                onClick={() => setSelectedMenu()}
+                onClick={() => {
+                  setSelectedMenu(menu);
+                  setEditOpen(true);
+                }}
                 size={"sm"}
                 className="bg-orange hover:bg-hoverOrange mt-2"
               >
@@ -160,7 +164,11 @@ const AddMenu = () => {
         );
       })}
 
-      <EditMenu seletedMenu={selectedMenu} />
+      <EditMenu
+        seletedMenu={selectedMenu}
+        editOpen={editOpen}
+        setEditOpen={setEditOpen}
+      />
     </div>
   );
 };
