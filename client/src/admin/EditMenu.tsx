@@ -31,7 +31,7 @@ const EditMenu = ({
     name: "",
     desc: "",
     price: 0,
-    img: "",
+    img: undefined,
   });
 
   const changeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,11 +43,18 @@ const EditMenu = ({
   };
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputData);
   };
   const loading = false;
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(inputData);
+    setInputData({
+      name: selectedMenu?.name || " ",
+      desc: selectedMenu?.desc || " ",
+      price: selectedMenu?.price || 0,
+      img: undefined,
+    });
+  }, [selectedMenu]);
   return (
     <Dialog open={editOpen} onOpenChange={setEditOpen}>
       <DialogContent>

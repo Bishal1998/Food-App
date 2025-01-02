@@ -165,7 +165,7 @@ const AddMenu = () => {
       })}
 
       <EditMenu
-        seletedMenu={selectedMenu}
+        selectedMenu={selectedMenu}
         editOpen={editOpen}
         setEditOpen={setEditOpen}
       />
