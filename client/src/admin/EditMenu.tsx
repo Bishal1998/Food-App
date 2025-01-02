@@ -43,6 +43,7 @@ const EditMenu = ({
   };
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(inputData);
   };
   const loading = false;
 
