@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { MenuFormSchema } from "@/Schema/menuSchema";
 import { Loader2 } from "lucide-react";
 import {
   Dispatch,
@@ -23,11 +24,11 @@ const EditMenu = ({
   editOpen,
   setEditOpen,
 }: {
-  selectedMenu: any;
+  selectedMenu: MenuFormSchema;
   editOpen: boolean;
   setEditOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [inputData, setInputData] = useState<any>({
+  const [inputData, setInputData] = useState<MenuFormSchema>({
     name: "",
     desc: "",
     price: 0,

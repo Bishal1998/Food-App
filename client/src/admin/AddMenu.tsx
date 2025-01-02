@@ -14,6 +14,7 @@ import { Loader2, Plus } from "lucide-react";
 import { FormEvent, useState } from "react";
 import Pizza from "@/assets/pizza.jpg";
 import EditMenu from "@/admin/EditMenu";
+import { MenuFormSchema } from "@/Schema/menuSchema";
 
 const menus = [
   {
@@ -26,14 +27,14 @@ const menus = [
 
 const AddMenu = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [selectedMenu, setSelectedMenu] = useState();
-  const [editOpen, setEditOpen] = useState<boolean>();
+  const [selectedMenu, setSelectedMenu] = useState<any>();
+  const [editOpen, setEditOpen] = useState<boolean>(false);
 
-  const [inputData, setInputData] = useState<any>({
+  const [inputData, setInputData] = useState<MenuFormSchema>({
     name: "",
     desc: "",
     price: 0,
-    img: "",
+    img: undefined,
   });
 
   const loading = false;
@@ -131,7 +132,7 @@ const AddMenu = () => {
           </DialogContent>
         </Dialog>
       </div>
-      {menus.map((menu: any, index: number) => {
+      {menus.map((menu, index: number) => {
         return (
           <div key={index} className="mt-6 space-y-4">
             <div className="flex flex-col md:flex-row md:items-center md:space-x-4 md:p-4 p-2 shadow-md rounded-lg border">
