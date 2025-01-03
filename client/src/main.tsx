@@ -15,6 +15,7 @@ import DetailPage from "@/components/DetailPage";
 import Cart from "@/components/Cart";
 import Restaurant from "@/admin/Restaurant";
 import AddMenu from "@/admin/AddMenu";
+import Orders from "@/admin/Orders";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/addmenu",
         element: <AddMenu />,
+      },
+      {
+        path: "/admin/orders",
+        element: <Orders />,
       },
     ],
   },
