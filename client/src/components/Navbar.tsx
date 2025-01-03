@@ -64,7 +64,7 @@ const Navbar = () => {
                     <Link to="/admin/restaurant">
                       <MenubarItem>Restaurant</MenubarItem>
                     </Link>
-                    <Link to="/admin/menu">
+                    <Link to="/admin/addmenu">
                       <MenubarItem>Menu</MenubarItem>
                     </Link>
                     <Link to="/admin/orders">
@@ -169,7 +169,7 @@ const MobileNav = () => {
             <span>Profile</span>
           </Link>
           <Link
-            to="/profile"
+            to="/order"
             className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 cursor-pointer hover:text-gray-900 font-medium"
           >
             <HandPlatter />
@@ -183,7 +183,7 @@ const MobileNav = () => {
             <span>Cart (0)</span>
           </Link>
           <Link
-            to="/cart"
+            to="/admin/addmenu"
             className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 cursor-pointer hover:text-gray-900 font-medium"
           >
             <SquareMenu />
