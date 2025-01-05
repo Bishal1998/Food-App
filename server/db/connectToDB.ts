@@ -1,6 +1,3 @@
-// mongoPassword=heCixEBTy4PNd3YT
-// username=bishalpaudel1998
-
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
