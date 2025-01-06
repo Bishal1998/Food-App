@@ -33,17 +33,54 @@ const signup = async (req: Request, res: Response) => {
 
     const newUser = await User.findOne({ email }).select("-password");
 
-    return res
-      .status(201)
-      .json({
-        success: true,
-        message: "User created successfully",
-        user: newUser,
-      });
+    return res.status(201).json({
+      success: true,
+      message: "User created successfully",
+      user: newUser,
+    });
   } catch (error) {
     console.log("Signup Error : ", error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-export { signup };
+const login = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "No User found" });
+    }
+
+    const checkedPassword = await bcryptjs.compare(password, user.password);
+
+    if (!checkedPassword) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Email or password didn't match" });
+    }
+
+    //generateToken(response, user)
+
+    user.lastLogin = new Date();
+
+    await user.save();
+
+    const newUser = await User.findOne({ email }).select("-password");
+
+    return res.status(200).json({
+      success: true,
+      message: `${user.fullName} logged in successfully`,
+      user: newUser,
+    });
+  } catch (error) {
+    console.log("Login error: ", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export { signup, login };
