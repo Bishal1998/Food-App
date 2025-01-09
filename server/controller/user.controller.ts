@@ -126,7 +126,7 @@ const logout = async (req: Request, res: Response) => {
       .status(200)
       .json({ success: true, message: "Logged out successfully" });
   } catch (error) {
-    console.log("VerifyEmail error: ", error);
+    console.log("Logout error: ", error);
     return res
       .status(500)
       .json({ success: false, message: "Internal Server Error" });
@@ -160,18 +160,56 @@ const forgotPassword = async (req: Request, res: Response) => {
     //   `${process.env.FRONTEND_URL}/resetpassword/${token}`
     // );
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "Password reset link sent to your email",
-      });
+    return res.status(200).json({
+      success: true,
+      message: "Password reset link sent to your email",
+    });
   } catch (error) {
-    console.log("VerifyEmail error: ", error);
+    console.log("Forgot Password error: ", error);
     return res
       .status(500)
       .json({ success: false, message: "Internal Server Error" });
   }
 };
 
-export { signup, login, verifyEmail, logout, forgotPassword };
+const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.params;
+    const { newPassword } = req.body;
+
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordTokenExpiresAt: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid or expired reset token" });
+    }
+
+    // update password
+    const hashedPassword = await bcryptjs.hash(newPassword, 10);
+
+    user.password = hashedPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordTokenExpiresAt = undefined;
+
+    await user.save();
+
+    // send success reset email
+
+    // await sendResetSuccessEmail(user.email)
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Password reset successfully" });
+  } catch (error) {
+    console.log("Reset Password error: ", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export { signup, login, verifyEmail, logout, forgotPassword, resetPassword };
