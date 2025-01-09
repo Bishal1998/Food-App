@@ -118,4 +118,18 @@ const verifyEmail = async (req: Request, res: Response) => {
   }
 };
 
-export { signup, login, verifyEmail };
+const logout = async (req: Request, res: Response) => {
+  try {
+    return res
+      .clearCookie("token")
+      .status(200)
+      .json({ success: true, message: "Logged out successfully" });
+  } catch (error) {
+    console.log("VerifyEmail error: ", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export { signup, login, verifyEmail, logout };
