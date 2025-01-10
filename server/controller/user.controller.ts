@@ -212,4 +212,25 @@ const resetPassword = async (req: Request, res: Response) => {
   }
 };
 
+const checkAuth = async (req: Request, res: Response) => {
+  try {
+    const userId = req.id;
+
+    const user = await User.findById(userId).select("-password");
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    return res.status(200).json({ sucess: true, user });
+  } catch (error) {
+    console.log("Reset Password error: ", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
 export { signup, login, verifyEmail, logout, forgotPassword, resetPassword };
