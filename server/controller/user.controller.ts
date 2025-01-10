@@ -233,4 +233,22 @@ const checkAuth = async (req: Request, res: Response) => {
   }
 };
 
+const updateProfile = async (req: Request, res: Response) => {
+  try {
+    const userId = req.id;
+
+    const { fullName, email, address, city, country, profilePicture } =
+      req.body;
+
+    // upload image on cloudinary
+
+    
+  } catch (error) {
+    console.log("Update Profile error: ", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
 export { signup, login, verifyEmail, logout, forgotPassword, resetPassword };
