@@ -1,3 +1,4 @@
+import { htmlContent } from "./htmlContent";
 import { client, sender } from "./mailtrap";
 
 export const sendVertificationEmail = async (
@@ -10,6 +11,7 @@ export const sendVertificationEmail = async (
     const res = await client.send({
       from: sender,
       to: recipient,
+      html: htmlContent.replace("{verificationToken}", verificationToken),
       subject: "Verify your email",
       category: "Email Verification",
     });
