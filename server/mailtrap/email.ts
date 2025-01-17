@@ -1,4 +1,9 @@
-import { htmlContent } from "./htmlContent";
+import {
+  generatePasswordResetEmailHtml,
+  generateResetSuccessEmailHtml,
+  generateWelcomeEmailHtml,
+  htmlContent,
+} from "./htmlContent";
 import { client, sender } from "./mailtrap";
 
 export const sendVertificationEmail = async (
@@ -23,7 +28,7 @@ export const sendVertificationEmail = async (
 
 export const sendWelcomeEmail = async (email: string, name: string) => {
   const recipient = [{ email }];
-  const htmlContent = "";
+  const htmlContent = generateWelcomeEmailHtml(name);
 
   try {
     const res = await client.send({
@@ -48,7 +53,7 @@ export const sendPasswordResetEmail = async (
   resetUrl: string
 ) => {
   const recipient = [{ email }];
-  const htmlContent = "";
+  const htmlContent = generatePasswordResetEmailHtml(resetUrl);
   try {
     const res = await client.send({
       from: sender,
@@ -68,7 +73,7 @@ export const sendResetSuccessEmail = async (
   resetUrl: string
 ) => {
   const recipient = [{ email }];
-  const htmlContent = "";
+  const htmlContent = generateResetSuccessEmailHtml();
   try {
     const res = await client.send({
       from: sender,
