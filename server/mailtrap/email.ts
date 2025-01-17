@@ -18,3 +18,25 @@ export const sendVertificationEmail = async (
     throw new Error("Failed to send email verification");
   }
 };
+
+export const sendWelcomeEmail = async (email: string, name: string) => {
+  const recipient = [{ email }];
+  const htmlContent = "";
+
+  try {
+    const res = await client.send({
+      from: sender,
+      to: recipient,
+      subject: "Welcome to FoodApp",
+      category: "Welcome Email",
+      html: htmlContent,
+      template_variables: {
+        company_info_name: "FoodApp",
+        name: name,
+      },
+    });
+  } catch (error) {
+    console.log("Welcome Email error: ", error);
+    throw new Error("Failed to send welcome email");
+  }
+};
