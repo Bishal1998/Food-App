@@ -40,3 +40,23 @@ export const sendWelcomeEmail = async (email: string, name: string) => {
     throw new Error("Failed to send welcome email");
   }
 };
+
+export const sendPasswordResetEmail = async (
+  email: string,
+  resetUrl: string
+) => {
+  const recipient = [{ email }];
+  const htmlContent = "";
+  try {
+    const res = await client.send({
+      from: sender,
+      to: recipient,
+      subject: "Reset your Password",
+      category: "Password Reset",
+      html: htmlContent,
+    });
+  } catch (error) {
+    console.log("Password reset Email error: ", error);
+    throw new Error("Failed to send password reset mail");
+  }
+};
