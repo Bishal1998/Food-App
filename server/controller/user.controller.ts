@@ -19,7 +19,7 @@ const signup = async (req: Request, res: Response) => {
     let user = await User.findOne({ email });
 
     if (user) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: "User already exists with this email.",
       });
@@ -43,14 +43,14 @@ const signup = async (req: Request, res: Response) => {
 
     const newUser = await User.findOne({ email }).select("-password");
 
-    return res.status(201).json({
+    res.status(201).json({
       success: true,
       message: "User created successfully",
       user: newUser,
     });
   } catch (error) {
     console.log("Signup Error : ", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -61,15 +61,17 @@ const login = async (req: Request, res: Response) => {
     let user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ success: false, message: "No User found" });
+      res.status(404).json({ success: false, message: "No User found" });
+      return;
     }
 
     const checkedPassword = await bcryptjs.compare(password, user.password);
 
     if (!checkedPassword) {
-      return res
+      res
         .status(500)
         .json({ success: false, message: "Email or password didn't match" });
+      return;
     }
 
     generateToken(res, user);
@@ -80,16 +82,14 @@ const login = async (req: Request, res: Response) => {
 
     const newUser = await User.findOne({ email }).select("-password");
 
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: `${user.fullName} logged in successfully`,
       user: newUser,
     });
   } catch (error) {
     console.log("Login error: ", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
@@ -103,10 +103,11 @@ const verifyEmail = async (req: Request, res: Response) => {
     }).select("-password");
 
     if (!user) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: "Invalid or expired token",
       });
+      return;
     }
 
     user.isVerified = true;
@@ -117,28 +118,24 @@ const verifyEmail = async (req: Request, res: Response) => {
     // send welcome email
     await sendWelcomeEmail(user.email, user.fullName);
 
-    return res
+    res
       .status(200)
       .json({ success: true, message: "User verified successfully", user });
   } catch (error) {
     console.log("VerifyEmail error: ", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
 const logout = async (req: Request, res: Response) => {
   try {
-    return res
+    res
       .clearCookie("token")
       .status(200)
       .json({ success: true, message: "Logged out successfully" });
   } catch (error) {
     console.log("Logout error: ", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
@@ -149,9 +146,8 @@ const forgotPassword = async (req: Request, res: Response) => {
     let user = await User.findOne({ email });
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, message: "User doesn't exists" });
+      res.status(400).json({ success: false, message: "User doesn't exists" });
+      return;
     }
 
     const resetToken = crypto.randomBytes(40).toString("hex");
@@ -169,15 +165,13 @@ const forgotPassword = async (req: Request, res: Response) => {
       `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`
     );
 
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: "Password reset link sent to your email",
     });
   } catch (error) {
     console.log("Forgot Password error: ", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
@@ -192,9 +186,10 @@ const resetPassword = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res
+      res
         .status(400)
         .json({ success: false, message: "Invalid or expired reset token" });
+      return;
     }
 
     // update password
@@ -210,14 +205,12 @@ const resetPassword = async (req: Request, res: Response) => {
 
     await sendResetSuccessEmail(user.email);
 
-    return res
+    res
       .status(200)
       .json({ success: true, message: "Password reset successfully" });
   } catch (error) {
     console.log("Reset Password error: ", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
@@ -228,17 +221,14 @@ const checkAuth = async (req: Request, res: Response) => {
     const user = await User.findById(userId).select("-password");
 
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      res.status(404).json({ success: false, message: "User not found" });
+      return;
     }
 
-    return res.status(200).json({ sucess: true, user });
+    res.status(200).json({ sucess: true, user });
   } catch (error) {
     console.log("Reset Password error: ", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
@@ -269,7 +259,7 @@ const updateProfile = async (req: Request, res: Response) => {
         new: true,
       }).select("-password");
 
-      return res
+      res
         .status(200)
         .json({ success: true, message: "Profile updated successfully", user });
     } catch (error) {
@@ -277,9 +267,7 @@ const updateProfile = async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.log("Update Profile error: ", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
