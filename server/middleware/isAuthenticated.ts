@@ -15,28 +15,28 @@ const isAuthenticated = async (
   next: NextFunction
 ) => {
   try {
-    const token = req.cookies.token;
+    const token = req.cookies?.token;
     if (!token) {
-      return res
+      res
         .status(401)
         .json({ success: false, message: "User not authenticated" });
+      return;
     }
 
     // verify the token
     const decode = jwt.verify(token, process.env.SECRET_KEY!) as jwt.JwtPayload;
 
     // check whether decoding is successful
-    if (!decode) {
-      return res.status(401).json({ success: false, message: "Invalid token" });
+    if (!decode || !decode.userId) {
+      res.status(401).json({ success: false, message: "Invalid token" });
+      return;
     }
 
     req.id = decode.userId;
     next();
   } catch (error) {
     console.log("isAuthenticated error: ", error);
-    return res
-      .status(400)
-      .json({ success: false, message: "Internal server error" });
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
 
