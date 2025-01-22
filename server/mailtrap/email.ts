@@ -6,7 +6,7 @@ import {
 } from "./htmlContent";
 import { client, sender } from "./mailtrap";
 
-export const sendVertificationEmail = async (
+const sendVertificationEmail = async (
   email: string,
   verificationToken: string
 ) => {
@@ -26,7 +26,7 @@ export const sendVertificationEmail = async (
   }
 };
 
-export const sendWelcomeEmail = async (email: string, name: string) => {
+const sendWelcomeEmail = async (email: string, name: string) => {
   const recipient = [{ email }];
   const htmlContent = generateWelcomeEmailHtml(name);
 
@@ -48,10 +48,7 @@ export const sendWelcomeEmail = async (email: string, name: string) => {
   }
 };
 
-export const sendPasswordResetEmail = async (
-  email: string,
-  resetUrl: string
-) => {
+const sendPasswordResetEmail = async (email: string, resetUrl: string) => {
   const recipient = [{ email }];
   const htmlContent = generatePasswordResetEmailHtml(resetUrl);
   try {
@@ -68,7 +65,7 @@ export const sendPasswordResetEmail = async (
   }
 };
 
-export const sendResetSuccessEmail = async (email: string) => {
+const sendResetSuccessEmail = async (email: string) => {
   const recipient = [{ email }];
   const htmlContent = generateResetSuccessEmailHtml();
   try {
@@ -83,4 +80,11 @@ export const sendResetSuccessEmail = async (email: string) => {
     console.log("Password reset success Email error: ", error);
     throw new Error("Failed to send password reset success mail");
   }
+};
+
+export {
+  sendVertificationEmail,
+  sendWelcomeEmail,
+  sendPasswordResetEmail,
+  sendResetSuccessEmail,
 };
