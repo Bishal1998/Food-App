@@ -47,4 +47,18 @@ const createRestaurant = async (req: Request, res: Response) => {
   }
 };
 
-export { createRestaurant };
+const getRestaurant = async (req: Request, res: Response) => {
+  try {
+    const restaurant = await Restaurant.find({ user: req.id });
+    if (!restaurant) {
+      res.status(404).json({ success: false, message: "Restaurant not found" });
+      return;
+    }
+    res.status(200).json({ success: true, restaurant });
+  } catch (error) {
+    console.log("Create Restaurant Error : ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export { createRestaurant, getRestaurant };
