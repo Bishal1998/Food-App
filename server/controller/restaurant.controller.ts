@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Restaurant from "../models/restaurant.model";
 import { Multer } from "multer";
 import uploadImageOnCloudinary from "../utils/imageUpload";
+import Order from "../models/order.model";
 
 const createRestaurant = async (req: Request, res: Response) => {
   try {
@@ -94,4 +95,24 @@ const updateRestaurant = async (req: Request, res: Response) => {
   }
 };
 
-export { createRestaurant, getRestaurant };
+const getRestaurantOrders = async (req: Request, res: Response) => {
+  try {
+    const restaurant = await Restaurant.findOne({ user: req.id });
+
+    if (!restaurant) {
+      res.status(404).json({ success: false, message: "Restaurant not found" });
+      return;
+    }
+
+    const orders = await Order.find({ restaurant: restaurant._id })
+      .populate("restaurant")
+      .populate("user");
+
+    res.status(200).json({ success: true, orders });
+  } catch (error) {
+    console.log("Get Restaurant Orders Error : ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export { createRestaurant, getRestaurant, getRestaurantOrders };
