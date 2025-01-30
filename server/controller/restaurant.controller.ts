@@ -115,4 +115,29 @@ const getRestaurantOrders = async (req: Request, res: Response) => {
   }
 };
 
-export { createRestaurant, getRestaurant, getRestaurantOrders };
+const updateOrderStatus = async (req: Request, res: Response) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      res.status(404).json({ success: false, message: "Order not found" });
+      return;
+    }
+
+    order.status = status;
+    await order.save();
+    res.status(200).json({ success: true, message: "Status Updated" });
+  } catch (error) {
+    console.log("Update Order Status Error : ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export {
+  createRestaurant,
+  getRestaurant,
+  getRestaurantOrders,
+  updateOrderStatus,
+};
