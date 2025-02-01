@@ -135,9 +135,19 @@ const updateOrderStatus = async (req: Request, res: Response) => {
   }
 };
 
+const searchRestaurant = async (req: Request, res: Response) => {
+  try {
+    
+  } catch (error) {
+    console.log("Search Restaurant Error : ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export {
   createRestaurant,
   getRestaurant,
   getRestaurantOrders,
   updateOrderStatus,
+  searchRestaurant,
 };
