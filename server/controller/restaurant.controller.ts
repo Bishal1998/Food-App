@@ -176,10 +176,30 @@ const searchRestaurant = async (req: Request, res: Response) => {
   }
 };
 
+const getSingleRestaurant = async (req: Request, res: Response) => {
+  try {
+    const restaurantId = req.params.id;
+    const restaurant = await Restaurant.findById(restaurantId).populate({
+      path: "menus",
+      options: { createdAt: -1 },
+    });
+
+    if (!restaurant) {
+      res.status(404).json({ success: false, message: "Restaurant Not Found" });
+    }
+
+    res.status(200).json({ success: true, restaurant });
+  } catch (error) {
+    console.log("Get Single Restaurant Error : ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export {
   createRestaurant,
   getRestaurant,
   getRestaurantOrders,
   updateOrderStatus,
   searchRestaurant,
+  getSingleRestaurant,
 };
