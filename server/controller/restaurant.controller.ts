@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Restaurant from "../models/restaurant.model";
-import { Multer } from "multer";
 import uploadImageOnCloudinary from "../utils/imageUpload";
 import Order from "../models/order.model";
 
@@ -137,7 +136,6 @@ const updateOrderStatus = async (req: Request, res: Response) => {
 
 const searchRestaurant = async (req: Request, res: Response) => {
   try {
-    
   } catch (error) {
     console.log("Search Restaurant Error : ", error);
     res.status(500).json({ message: "Internal Server Error" });
