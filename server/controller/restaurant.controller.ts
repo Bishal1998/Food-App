@@ -198,6 +198,7 @@ const getSingleRestaurant = async (req: Request, res: Response) => {
 export {
   createRestaurant,
   getRestaurant,
+  updateRestaurant,
   getRestaurantOrders,
   updateOrderStatus,
   searchRestaurant,
